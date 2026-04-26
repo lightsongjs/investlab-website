@@ -15,7 +15,8 @@ export async function onRequestPost(context) {
 
   const auth = btoa(`${env.MAILJET_API_KEY}:${env.MAILJET_SECRET_KEY}`);
 
-  const mjRes = await fetch(
+  // 1. Adaugă contactul în lista Newsletter InvestLab
+  const listRes = await fetch(
     `https://api.mailjet.com/v3/REST/contactslist/${env.MAILJET_CONTACT_LIST_ID}/managecontact`,
     {
       method: 'POST',
@@ -27,9 +28,28 @@ export async function onRequestPost(context) {
     }
   );
 
-  if (!mjRes.ok) {
+  if (!listRes.ok) {
     return Response.json({ error: 'Eroare server' }, { status: 500 });
   }
+
+  // 2. Trimite emailul de bun venit (Email 1 din secvența de onboarding)
+  await fetch('https://api.mailjet.com/v3.1/send', {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${auth}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      Messages: [{
+        From: { Email: 'mihai@investlab.ro', Name: 'Mihai - InvestLab' },
+        ReplyTo: { Email: 'contact@investlab.ro' },
+        To: [{ Email: email }],
+        TemplateID: 7961027,
+        TemplateLanguage: true,
+        Subject: 'Bun venit — îți trimit ceva mâine',
+      }],
+    }),
+  });
 
   return Response.json({ success: true });
 }
