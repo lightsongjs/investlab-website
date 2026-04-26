@@ -7,7 +7,6 @@
     <meta name="description" content="Urmărește fiecare tranzacție a portofoliului nostru în timp real. Educație financiară, mentorat și transparență totală.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -756,7 +755,7 @@
         .wl-input::placeholder { color: #a0aec0; }
         .wl-btn {
             padding: 14px 22px;
-            background: var(--green);
+            background: var(--navy);
             color: #fff;
             border: none;
             border-radius: 0 10px 10px 0;
@@ -767,7 +766,7 @@
             white-space: nowrap;
             transition: background .2s, transform .15s;
         }
-        .wl-btn:hover { background: var(--green-light); transform: translateX(2px); }
+        .wl-btn:hover { background: var(--green); transform: translateX(2px); }
         .waitlist-note { font-size: 12px; color: var(--muted); }
 
         /* ── MENTORAT VISUAL (Section 3) ── */
@@ -863,7 +862,7 @@
         .session-card-large {
             width: 100%;
             max-width: 380px;
-            background: rgba(255,255,255,.06);
+            background: var(--navy);
             border: 1px solid rgba(255,255,255,.1);
             border-radius: 20px;
             padding: 28px 28px 24px;
@@ -971,21 +970,21 @@
         .ap-input {
             flex: 1;
             padding: 14px 18px;
-            border: 2px solid rgba(255,255,255,.14);
+            border: 2px solid var(--border);
             border-right: none;
             border-radius: 10px 0 0 10px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 14px;
-            color: #fff;
-            background: rgba(255,255,255,.07);
+            color: var(--text);
+            background: var(--white);
             outline: none;
             transition: border-color .2s;
         }
-        .ap-input:focus { border-color: var(--green-light); }
-        .ap-input::placeholder { color: rgba(255,255,255,.3); }
+        .ap-input:focus { border-color: var(--green); }
+        .ap-input::placeholder { color: #a0aec0; }
         .ap-btn {
             padding: 14px 24px;
-            background: var(--green);
+            background: var(--navy);
             color: #fff;
             border: none;
             border-radius: 0 10px 10px 0;
@@ -996,7 +995,7 @@
             white-space: nowrap;
             transition: background .2s, transform .15s;
         }
-        .ap-btn:hover { background: var(--green-light); transform: translateX(2px); }
+        .ap-btn:hover { background: var(--green); transform: translateX(2px); }
 
         .badge-limited {
             display: inline-flex;
@@ -1037,7 +1036,7 @@
             position: absolute;
             inset: 6px;
             border-radius: 50%;
-            background: var(--navy);
+            background: #b8d4c4;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1246,51 +1245,40 @@
         /* ── RESPONSIVE ── */
         @media (max-width: 1100px) {
             .hero { grid-template-columns: 1fr; min-height: auto; }
-            .hero-left  { padding: 64px 48px 48px; order: 0; }
-            .hero-right { padding: 52px 40px; order: 1; min-height: 380px; }
+            .hero-left  { padding: 64px 48px 48px; order: 1; }
+            .hero-right { padding: 52px 40px; order: 0; min-height: 420px; }
             .nav-inner      { padding: 0 48px; }
             .proof          { padding: 52px 48px; }
             .prod-section   { padding: 80px 48px; }
             .prod-inner     { grid-template-columns: 1fr; gap: 48px; }
-            .prod-inner--rev .prod-text   { order: 1; }
-            .prod-inner--rev .prod-visual { order: 2; }
+            .prod-inner--rev .prod-text   { order: 2; }
+            .prod-inner--rev .prod-visual { order: 1; }
             .about          { grid-template-columns: 1fr; padding: 80px 48px; gap: 48px; }
             .final-cta      { padding: 80px 48px; }
             footer          { padding: 32px 48px; }
-            .mini-widget, .member-card, .session-card-large { max-width: 480px; margin: 0 auto; }
         }
 
         @media (max-width: 720px) {
-            .nav-inner  { padding: 0 20px; }
+            .nav-inner  { padding: 0 24px; }
             .nav-links  { display: none; }
             .nav-cta    { font-size: 13px; padding: 8px 16px; }
-            .hero-left  { padding: 44px 24px 36px; }
-            .hero-right { padding: 36px 20px; min-height: 300px; }
-            .portfolio-card { max-width: 100%; }
+            .hero-left  { padding: 52px 28px; }
+            .hero-right { padding: 48px 24px; }
             .proof {
                 grid-template-columns: 1fr;
-                padding: 44px 24px;
-                gap: 28px;
+                padding: 48px 28px;
+                gap: 32px;
             }
             .proof-divider { display: none; }
-            .proof-num { font-size: 44px; }
-            .prod-section   { padding: 60px 24px; }
-            .prod-inner     { gap: 32px; }
-            .prod-headline  { font-size: clamp(26px, 7vw, 36px); }
-            .prod-desc      { font-size: 15px; }
-            .prod-benefits  { gap: 10px; }
-            .about          { padding: 60px 24px; gap: 36px; }
-            .about-avatar-wrap { width: 200px; height: 200px; margin: 0 auto; }
-            .about-avatar-ring { width: 200px; height: 200px; }
-            .about-avatar-initial { font-size: 68px; }
-            .about-stats    { gap: 24px; }
-            .final-cta      { padding: 60px 24px; }
-            .cta-headline   { font-size: clamp(28px, 8vw, 44px); }
+            .prod-section   { padding: 72px 28px; }
+            .prod-inner     { gap: 36px; }
+            .about          { padding: 72px 28px; }
+            .final-cta      { padding: 72px 28px; }
             footer {
                 flex-direction: column;
-                gap: 14px;
+                gap: 16px;
                 text-align: center;
-                padding: 24px;
+                padding: 28px;
             }
             .email-form, .waitlist-form, .apply-form, .cta-form {
                 flex-direction: column;
@@ -1305,7 +1293,7 @@
                 border-radius: 0 0 10px 10px;
             }
             .ap-input {
-                border-right: 2px solid rgba(255,255,255,.14);
+                border-right: 2px solid var(--border);
                 border-radius: 10px 10px 0 0;
                 border-bottom: none;
             }
@@ -1316,8 +1304,6 @@
                 border-bottom: none;
             }
             .cta-btn { border-radius: 0 0 10px 10px; }
-            .mini-widget, .member-card, .session-card-large { max-width: 100%; }
-            .scl-rows { gap: 0; }
         }
     </style>
 </head>
@@ -1592,7 +1578,7 @@
                     <span class="prod-benefit-text">Arhivă completă jurnal tranzacții</span>
                 </li>
             </ul>
-            <p class="waitlist-soon">Membership-ul se lansează pe <strong>1 Iunie 2026</strong>.</p>
+            <p class="waitlist-soon">Membership-ul se lansează pe <strong>1 Mai 2026</strong>.</p>
             <form class="waitlist-form" onsubmit="handleWaitlist(event)">
                 <input type="email" class="wl-input" placeholder="adresa ta de email" required>
                 <button type="submit" class="wl-btn">Vreau să fiu anunțat →</button>
@@ -1607,7 +1593,7 @@
 <!-- ══════════════════════════════════════
      S3 — MENTORAT 1-LA-1
 ══════════════════════════════════════ -->
-<section class="prod-section prod-section--navy" id="mentorat">
+<section class="prod-section prod-section--white" id="mentorat">
     <div class="prod-inner">
 
         <div class="prod-text reveal">
@@ -1695,10 +1681,9 @@
         <div class="about-avatar-wrap">
             <div class="about-avatar-ring">
                 <div class="about-avatar-bg">
-                    <span class="about-avatar-initial">M</span>
+                    <img src="https://mihaisuciu.ro/wp-content/uploads/2025/10/Mihai-Suciu-Mentor-Mate.png" alt="Mihai Suciu" style="width:100%;height:100%;object-fit:cover;object-position:center 37%;display:block;">
                 </div>
             </div>
-            <div class="about-avatar-chip">Analist · Investitor</div>
         </div>
     </div>
 
@@ -1803,51 +1788,10 @@
         btn.style.background = '#2d8c4e';
         btn.disabled = true;
     }
-
-    function setError(btn, originalText) {
-        btn.textContent = 'Eroare — încearcă din nou';
-        btn.style.background = '#c0392b';
-        setTimeout(() => { btn.textContent = originalText; btn.style.background = ''; btn.disabled = false; }, 3000);
-    }
-
-    async function subscribeEmail(email, btn, successText) {
-        const originalText = btn.textContent;
-        btn.textContent = 'Se trimite...';
-        btn.disabled = true;
-        try {
-            const res = await fetch('/api/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email }),
-            });
-            if (res.ok) {
-                setSuccess(btn, successText);
-            } else {
-                setError(btn, originalText);
-            }
-        } catch {
-            setError(btn, originalText);
-        }
-    }
-
-    function handleHeroForm(e)  { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Abonat cu succes!'); }
-    function handleCtaForm(e)   { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Ai primit accesul!'); }
-    async function notifyEmail(email, btn, type, successText) {
-        const originalText = btn.textContent;
-        btn.textContent = 'Se trimite...';
-        btn.disabled = true;
-        try {
-            const res = await fetch('/api/notify', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, type }),
-            });
-            if (res.ok) { setSuccess(btn, successText); } else { setError(btn, originalText); }
-        } catch { setError(btn, originalText); }
-    }
-
-    function handleWaitlist(e)  { e.preventDefault(); const b = e.target.querySelector('button'); notifyEmail(e.target.querySelector('input').value, b, 'membership', '✓ Te anunțăm la lansare!'); }
-    function handleApply(e)     { e.preventDefault(); const b = e.target.querySelector('button'); notifyEmail(e.target.querySelector('input').value, b, 'mentorat',   '✓ Aplicat cu succes!'); }
+    function handleHeroForm(e)  { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Abonat cu succes!'); }
+    function handleCtaForm(e)   { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Ai primit accesul!'); }
+    function handleWaitlist(e)  { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Te anunțăm la lansare!'); }
+    function handleApply(e)     { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Aplicat cu succes!'); }
 </script>
 
 </body>
