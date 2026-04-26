@@ -30,10 +30,15 @@ export async function onRequestPost(context) {
     },
     body: JSON.stringify({
       Messages: [{
-        From:     { Email: 'mihai@investlab.ro', Name: 'InvestLab' },
-        To:       [{ Email: 'contact@investlab.ro' }],
-        Subject:  subjects[type] || 'Cerere nouă de pe site',
-        TextPart: `Email: ${email}`,
+        From:       { Email: 'mihai@investlab.ro', Name: 'InvestLab' },
+        To:         [
+          { Email: 'lightsongpy@gmail.com' },
+          { Email: 'mihaiclaudiusuciu87@gmail.com' },
+        ],
+        Subject:    subjects[type] || 'Cerere nouă de pe site',
+        TextPart:   `Email: ${email}`,
+        TrackOpens:  'disabled',
+        TrackClicks: 'disabled',
       }],
     }),
   });

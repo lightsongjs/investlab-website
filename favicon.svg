@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="7" fill="#0f2942"/>
-  <text x="4" y="24" font-family="Raleway, 'Arial Black', sans-serif" font-weight="900" font-size="21" fill="#ffffff">I</text>
-  <text x="15" y="24" font-family="Raleway, 'Arial Black', sans-serif" font-weight="900" font-size="21" fill="#3aa861">L</text>
+  <!-- I (alb) -->
+  <rect x="5" y="7" width="5" height="18" fill="#ffffff"/>
+  <!-- L vertical (verde) -->
+  <rect x="13" y="7" width="5" height="18" fill="#3aa861"/>
+  <!-- L horizontal (verde) -->
+  <rect x="13" y="21" width="13" height="4" fill="#3aa861"/>
 </svg>
