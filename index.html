@@ -1246,40 +1246,51 @@
         /* ── RESPONSIVE ── */
         @media (max-width: 1100px) {
             .hero { grid-template-columns: 1fr; min-height: auto; }
-            .hero-left  { padding: 64px 48px 48px; order: 1; }
-            .hero-right { padding: 52px 40px; order: 0; min-height: 420px; }
+            .hero-left  { padding: 64px 48px 48px; order: 0; }
+            .hero-right { padding: 52px 40px; order: 1; min-height: 380px; }
             .nav-inner      { padding: 0 48px; }
             .proof          { padding: 52px 48px; }
             .prod-section   { padding: 80px 48px; }
             .prod-inner     { grid-template-columns: 1fr; gap: 48px; }
-            .prod-inner--rev .prod-text   { order: 2; }
-            .prod-inner--rev .prod-visual { order: 1; }
+            .prod-inner--rev .prod-text   { order: 1; }
+            .prod-inner--rev .prod-visual { order: 2; }
             .about          { grid-template-columns: 1fr; padding: 80px 48px; gap: 48px; }
             .final-cta      { padding: 80px 48px; }
             footer          { padding: 32px 48px; }
+            .mini-widget, .member-card, .session-card-large { max-width: 480px; margin: 0 auto; }
         }
 
         @media (max-width: 720px) {
-            .nav-inner  { padding: 0 24px; }
+            .nav-inner  { padding: 0 20px; }
             .nav-links  { display: none; }
             .nav-cta    { font-size: 13px; padding: 8px 16px; }
-            .hero-left  { padding: 52px 28px; }
-            .hero-right { padding: 48px 24px; }
+            .hero-left  { padding: 44px 24px 36px; }
+            .hero-right { padding: 36px 20px; min-height: 300px; }
+            .portfolio-card { max-width: 100%; }
             .proof {
                 grid-template-columns: 1fr;
-                padding: 48px 28px;
-                gap: 32px;
+                padding: 44px 24px;
+                gap: 28px;
             }
             .proof-divider { display: none; }
-            .prod-section   { padding: 72px 28px; }
-            .prod-inner     { gap: 36px; }
-            .about          { padding: 72px 28px; }
-            .final-cta      { padding: 72px 28px; }
+            .proof-num { font-size: 44px; }
+            .prod-section   { padding: 60px 24px; }
+            .prod-inner     { gap: 32px; }
+            .prod-headline  { font-size: clamp(26px, 7vw, 36px); }
+            .prod-desc      { font-size: 15px; }
+            .prod-benefits  { gap: 10px; }
+            .about          { padding: 60px 24px; gap: 36px; }
+            .about-avatar-wrap { width: 200px; height: 200px; margin: 0 auto; }
+            .about-avatar-ring { width: 200px; height: 200px; }
+            .about-avatar-initial { font-size: 68px; }
+            .about-stats    { gap: 24px; }
+            .final-cta      { padding: 60px 24px; }
+            .cta-headline   { font-size: clamp(28px, 8vw, 44px); }
             footer {
                 flex-direction: column;
-                gap: 16px;
+                gap: 14px;
                 text-align: center;
-                padding: 28px;
+                padding: 24px;
             }
             .email-form, .waitlist-form, .apply-form, .cta-form {
                 flex-direction: column;
@@ -1305,6 +1316,8 @@
                 border-bottom: none;
             }
             .cta-btn { border-radius: 0 0 10px 10px; }
+            .mini-widget, .member-card, .session-card-large { max-width: 100%; }
+            .scl-rows { gap: 0; }
         }
     </style>
 </head>
