@@ -7,6 +7,7 @@
     <meta name="description" content="Urmărește fiecare tranzacție a portofoliului nostru în timp real. Educație financiară, mentorat și transparență totală.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1818,8 +1819,22 @@
 
     function handleHeroForm(e)  { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Abonat cu succes!'); }
     function handleCtaForm(e)   { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Ai primit accesul!'); }
-    function handleWaitlist(e)  { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Te anunțăm la lansare!'); }
-    function handleApply(e)     { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Aplicat cu succes!'); }
+    async function notifyEmail(email, btn, type, successText) {
+        const originalText = btn.textContent;
+        btn.textContent = 'Se trimite...';
+        btn.disabled = true;
+        try {
+            const res = await fetch('/api/notify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, type }),
+            });
+            if (res.ok) { setSuccess(btn, successText); } else { setError(btn, originalText); }
+        } catch { setError(btn, originalText); }
+    }
+
+    function handleWaitlist(e)  { e.preventDefault(); const b = e.target.querySelector('button'); notifyEmail(e.target.querySelector('input').value, b, 'membership', '✓ Te anunțăm la lansare!'); }
+    function handleApply(e)     { e.preventDefault(); const b = e.target.querySelector('button'); notifyEmail(e.target.querySelector('input').value, b, 'mentorat',   '✓ Aplicat cu succes!'); }
 </script>
 
 </body>
