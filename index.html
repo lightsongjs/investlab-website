@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestLab — Learn. Invest. Grow.</title>
+    <meta name="description" content="Urmărește fiecare tranzacție a portofoliului nostru în timp real. Educație financiară, mentorat și transparență totală.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy:        #0f2942;
+            --navy-mid:    #163754;
+            --navy-dark:   #091d30;
+            --green:       #2d8c4e;
+            --green-light: #3aa861;
+            --green-pale:  #e8f5ee;
+            --mint:        #f0f7f4;
+            --mint-dark:   #deeee6;
+            --white:       #ffffff;
+            --text:        #1a2332;
+            --muted:       #6b7b8f;
+            --border:      #e2e8f0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid transparent;
+            transition: border-color .25s, box-shadow .25s;
+        }
+        .navbar.scrolled {
+            border-color: var(--border);
+            box-shadow: 0 2px 16px rgba(15,41,66,.08);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            padding: 0 88px;
+            height: 64px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .nav-logo-badge {
+            width: 36px;
+            height: 36px;
+            background: var(--navy);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-logo-letters {
+            font-family: 'Raleway', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 0;
+            display: flex;
+        }
+        .nav-logo-text { display: flex; flex-direction: column; gap: 2px; }
+        .nav-wordmark {
+            font-family: 'Raleway', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            color: var(--navy);
+            letter-spacing: -.035em;
+            line-height: 1;
+        }
+        .nav-wordmark span { color: var(--green); }
+        .nav-tagline {
+            font-size: 7px;
+            font-weight: 600;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-left: auto;
+            margin-right: 20px;
+        }
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 7px;
+            transition: background .15s, color .15s;
+        }
+        .nav-links a:hover { background: var(--mint); color: var(--navy); }
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            padding: 9px 20px;
+            background: var(--navy);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background .2s;
+            flex-shrink: 0;
+        }
+        .nav-cta:hover { background: var(--green); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: calc(100vh - 64px);
+            display: grid;
+            grid-template-columns: 56fr 44fr;
+        }
+        .hero-left {
+            padding: 72px 64px 72px 88px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--white);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 72px;
+            opacity: 0;
+            animation: fadeUp .5s ease forwards .1s;
+        }
+        .logo-badge {
+            width: 42px;
+            height: 42px;
+            background: var(--navy);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .logo-badge-letters {
+            font-family: 'Raleway', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: 0;
+            position: relative;
+            z-index: 1;
+            display: flex;
+        }
+        .logo-text { display: flex; flex-direction: column; gap: 2px; }
+        .logo-wordmark {
+            font-family: 'Raleway', sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--navy);
+            letter-spacing: -.035em;
+            line-height: 1;
+        }
+        .logo-wordmark span { color: var(--green); }
+        .logo-tagline {
+            font-size: 7.5px;
+            font-weight: 600;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .hero-headline {
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(38px, 4.2vw, 58px);
+            font-weight: 900;
+            line-height: 1.08;
+            color: var(--navy);
+            letter-spacing: -.04em;
+            margin-bottom: 22px;
+            opacity: 0;
+            animation: fadeUp .6s ease forwards .4s;
+        }
+        .hero-headline em { font-style: italic; color: var(--green); }
+        .hero-sub {
+            font-size: 16.5px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 420px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeUp .6s ease forwards .55s;
+        }
+        .email-form {
+            display: flex;
+            max-width: 430px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(15,41,66,.12);
+            opacity: 0;
+            animation: fadeUp .6s ease forwards .7s;
+        }
+        .email-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14.5px;
+            color: var(--text);
+            background: var(--white);
+            outline: none;
+            transition: border-color .2s;
+        }
+        .email-input:focus { border-color: var(--navy); }
+        .email-input::placeholder { color: #a0aec0; }
+        .email-btn {
+            padding: 16px 26px;
+            background: var(--navy);
+            color: #fff;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14.5px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .2s, transform .15s;
+        }
+        .email-btn:hover { background: var(--green); transform: translateX(2px); }
+        .hero-trust {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px 22px;
+            opacity: 0;
+            animation: fadeUp .6s ease forwards .85s;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+        .trust-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--green);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+        .trust-dot svg {
+            width: 9px; height: 9px;
+            fill: none; stroke: #fff;
+            stroke-width: 2.5;
+            stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        /* Hero right */
+        .hero-right {
+            background: var(--mint);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 48px 60px 28px;
+            overflow: hidden;
+        }
+        .deco-ring {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .deco-ring-1 {
+            width: 540px; height: 540px;
+            border: 1.5px solid rgba(15,41,66,.08);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .deco-ring-2 {
+            width: 380px; height: 380px;
+            border: 1.5px solid rgba(45,140,78,.12);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .deco-blob {
+            position: absolute;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(45,140,78,.12) 0%, transparent 70%);
+            top: 20%; right: 10%;
+            pointer-events: none;
+        }
+
+        /* ── PORTFOLIO CARD ── */
+        .portfolio-card {
+            width: 100%;
+            max-width: 370px;
+            background: var(--navy);
+            border-radius: 18px;
+            padding: 20px 20px 16px;
+            box-shadow:
+                0 32px 64px rgba(15,41,66,.38),
+                0 8px 20px rgba(15,41,66,.22),
+                0 0 0 1px rgba(255,255,255,.04);
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeUp .8s ease forwards .65s;
+        }
+        .pc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .pc-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255,255,255,.6);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+        .pc-perf {
+            font-family: 'Raleway', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--green-light);
+            letter-spacing: -.04em;
+        }
+        .pc-chart {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            margin-bottom: 6px;
+        }
+        .pc-chart svg { width: 100%; height: 100%; overflow: visible; }
+        .pc-line {
+            stroke-dasharray: 1;
+            stroke-dashoffset: 1;
+            animation: drawLine 1.2s ease forwards .9s;
+        }
+        .pc-fill {
+            opacity: 0;
+            animation: fadeIn .7s ease forwards 2s;
+        }
+        .pc-dot {
+            position: absolute;
+            width: 10px; height: 10px;
+            background: var(--green-light);
+            border-radius: 50%;
+            border: 2px solid var(--navy);
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 10;
+            transition: transform .15s;
+        }
+        .pc-dot:hover { transform: translate(-50%, -50%) scale(1.5); }
+        .pc-dot::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(9,29,48,.95);
+            border: 1px solid rgba(255,255,255,.14);
+            color: rgba(255,255,255,.88);
+            font-size: 10.5px;
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 5px 10px;
+            border-radius: 6px;
+            opacity: 0;
+            transition: opacity .2s;
+            pointer-events: none;
+        }
+        .pc-dot:hover::after { opacity: 1; }
+        .pc-dot--flip::after {
+            left: auto;
+            right: 0;
+            transform: none;
+        }
+        .pc-xaxis {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 2px 0;
+            margin-bottom: 14px;
+        }
+        .pc-xaxis span {
+            font-size: 10px;
+            color: rgba(255,255,255,.3);
+            letter-spacing: .04em;
+        }
+        .pc-foot {
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,.07);
+            font-size: 11px;
+            color: rgba(255,255,255,.38);
+            text-align: center;
+            letter-spacing: .02em;
+        }
+
+        /* ── PROOF STRIP ── */
+        .proof {
+            background: var(--navy);
+            padding: 52px 88px;
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr 1px 1fr;
+            align-items: center;
+        }
+        .proof-divider {
+            background: rgba(255,255,255,.1);
+            height: 48px;
+            align-self: center;
+        }
+        .proof-item { text-align: center; padding: 0 32px; }
+        .proof-num {
+            font-family: 'Raleway', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -.05em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .proof-num sup { font-size: 28px; color: var(--green-light); vertical-align: super; }
+        .proof-label { font-size: 13.5px; color: rgba(255,255,255,.45); }
+
+        /* ── PRODUCT SECTIONS (shared) ── */
+        .prod-section { padding: 108px 88px; }
+        .prod-section--white { background: var(--white); }
+        .prod-section--mint  { background: var(--mint); }
+        .prod-section--navy  { background: var(--navy); }
+
+        .prod-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .prod-inner--rev .prod-text   { order: 2; }
+        .prod-inner--rev .prod-visual { order: 1; }
+
+        .prod-eyebrow, .section-eyebrow {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 14px;
+        }
+        .prod-section--navy .prod-eyebrow { color: var(--green-light); }
+
+        .prod-headline {
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(30px, 3.2vw, 44px);
+            font-weight: 900;
+            color: var(--navy);
+            letter-spacing: -.04em;
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+        .prod-headline em { font-style: italic; color: var(--green); }
+        .prod-section--navy .prod-headline    { color: var(--white); }
+        .prod-section--navy .prod-headline em { color: var(--green-light); }
+
+        .prod-desc {
+            font-size: 15.5px;
+            line-height: 1.72;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+        .prod-section--navy .prod-desc { color: rgba(255,255,255,.5); }
+
+        .prod-benefits {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            margin-bottom: 36px;
+        }
+        .prod-benefit { display: flex; align-items: center; gap: 12px; }
+        .benefit-check {
+            width: 20px; height: 20px;
+            background: var(--green);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+        .benefit-check svg {
+            width: 10px; height: 10px;
+            fill: none; stroke: #fff;
+            stroke-width: 2.5;
+            stroke-linecap: round; stroke-linejoin: round;
+        }
+        .prod-benefit-text { font-size: 14.5px; color: var(--text); }
+        .prod-section--navy .prod-benefit-text { color: rgba(255,255,255,.75); }
+
+        .prod-ctas { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 28px;
+            background: var(--navy);
+            color: #fff;
+            border-radius: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14.5px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background .2s, transform .15s;
+        }
+        .btn-primary:hover { background: var(--green); transform: translateX(2px); }
+        .btn-secondary {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .2s;
+        }
+        .btn-secondary:hover { color: var(--navy); }
+
+        /* ── MINI WIDGET (Section 1 visual) ── */
+        .mini-widget {
+            width: 100%;
+            max-width: 370px;
+            background: var(--navy);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow:
+                0 24px 48px rgba(15,41,66,.22),
+                0 6px 16px rgba(15,41,66,.14),
+                0 0 0 1px rgba(255,255,255,.04);
+            margin: 0 auto;
+        }
+        .widget-top {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .widget-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            color: rgba(255,255,255,.88);
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--green-light);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+        .live-dot {
+            width: 6px; height: 6px;
+            background: var(--green-light);
+            border-radius: 50%;
+            animation: livePulse 1.8s ease-in-out infinite;
+        }
+        .trade {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,.045);
+            transition: background .2s;
+        }
+        .trade:hover { background: rgba(255,255,255,.025); }
+        .trade-l { display: flex; align-items: center; gap: 11px; }
+        .badge {
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 5px;
+            letter-spacing: .08em;
+            flex-shrink: 0;
+        }
+        .badge-buy  { background: rgba(45,140,78,.28);  color: #4ade80; }
+        .badge-sell { background: rgba(239,68,68,.22);  color: #f87171; }
+        .badge-add  { background: rgba(59,130,246,.22); color: #93c5fd; }
+        .trade-ticker {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: rgba(255,255,255,.88);
+            letter-spacing: .04em;
+        }
+        .trade-name { font-size: 10.5px; color: rgba(255,255,255,.35); margin-top: 2px; }
+        .trade-r { text-align: right; }
+        .trade-price { font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,.82); }
+        .trade-when  { font-size: 10.5px; color: rgba(255,255,255,.3); margin-top: 2px; }
+        .widget-foot {
+            padding: 13px 20px;
+            border-top: 1px solid rgba(255,255,255,.07);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wf-count { font-size: 11px; color: rgba(255,255,255,.38); }
+        .wf-count strong { color: rgba(255,255,255,.65); }
+        .wf-cta { font-size: 11px; font-weight: 600; color: var(--green-light); letter-spacing: .04em; }
+
+        /* ── MEMBERSHIP CARD (Section 2 visual) ── */
+        .member-card {
+            width: 100%;
+            max-width: 370px;
+            background: var(--navy);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow:
+                0 24px 48px rgba(15,41,66,.22),
+                0 6px 16px rgba(15,41,66,.14),
+                0 0 0 1px rgba(255,255,255,.04);
+            margin: 0 auto;
+        }
+        .mc-header {
+            padding: 20px 22px 16px;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .mc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--green);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 100px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+        .mc-badge::before {
+            content: '';
+            width: 5px; height: 5px;
+            background: rgba(255,255,255,.8);
+            border-radius: 50%;
+        }
+        .mc-brand {
+            font-family: 'Raleway', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            color: rgba(255,255,255,.55);
+            letter-spacing: -.02em;
+        }
+        .mc-features { padding: 4px 0; }
+        .mc-feat {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 22px;
+            border-bottom: 1px solid rgba(255,255,255,.04);
+            transition: background .15s;
+        }
+        .mc-feat:last-child { border-bottom: none; }
+        .mc-feat:hover { background: rgba(255,255,255,.025); }
+        .mc-feat-icon {
+            width: 34px; height: 34px;
+            background: rgba(255,255,255,.06);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+        .mc-feat-label { font-size: 13.5px; color: rgba(255,255,255,.75); font-weight: 500; }
+        .mc-check {
+            margin-left: auto;
+            width: 18px; height: 18px;
+            background: rgba(45,140,78,.2);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+        .mc-check svg {
+            width: 9px; height: 9px;
+            fill: none; stroke: var(--green-light);
+            stroke-width: 2.5;
+            stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        /* Waitlist form */
+        .waitlist-soon {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        .waitlist-soon strong {
+            color: var(--green);
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .waitlist-form {
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(15,41,66,.1);
+            margin-bottom: 12px;
+            max-width: 460px;
+        }
+        .wl-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: var(--white);
+            outline: none;
+            transition: border-color .2s;
+        }
+        .wl-input:focus { border-color: var(--green); }
+        .wl-input::placeholder { color: #a0aec0; }
+        .wl-btn {
+            padding: 14px 22px;
+            background: var(--green);
+            color: #fff;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .2s, transform .15s;
+        }
+        .wl-btn:hover { background: var(--green-light); transform: translateX(2px); }
+        .waitlist-note { font-size: 12px; color: var(--muted); }
+
+        /* ── MENTORAT VISUAL (Section 3) ── */
+        .mentorat-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+        .avatar-wrap {
+            position: relative;
+            width: 200px; height: 200px;
+            margin: 0 auto;
+        }
+        .avatar-ring {
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            border: 3px solid var(--green);
+            position: relative;
+        }
+        .avatar-bg {
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            background: var(--navy-mid);
+            border: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .avatar-initial {
+            font-family: 'Raleway', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            color: rgba(255,255,255,.18);
+            line-height: 1;
+            user-select: none;
+        }
+        .avatar-chip {
+            position: absolute;
+            bottom: 8px;
+            right: -8px;
+            background: var(--green);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(45,140,78,.4);
+            white-space: nowrap;
+        }
+        .session-card {
+            width: 100%;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 16px;
+            padding: 18px 20px;
+        }
+        .sc-label-title {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.35);
+            margin-bottom: 14px;
+        }
+        .sc-rows { display: flex; flex-direction: column; gap: 10px; }
+        .sc-row { display: flex; align-items: center; justify-content: space-between; }
+        .sc-key { font-size: 12px; color: rgba(255,255,255,.38); }
+        .sc-val { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.78); }
+        .sc-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(45,140,78,.2);
+            color: var(--green-light);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+        .sc-status::before {
+            content: '';
+            width: 5px; height: 5px;
+            background: var(--green-light);
+            border-radius: 50%;
+        }
+
+        /* ── MENTORAT VISUAL — LARGE SESSION CARD ── */
+        .session-card-large {
+            width: 100%;
+            max-width: 380px;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 20px;
+            padding: 28px 28px 24px;
+            margin: 0 auto;
+        }
+        .scl-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+        .scl-title {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.35);
+        }
+        .scl-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(45,140,78,.18);
+            color: var(--green-light);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 100px;
+        }
+        .scl-live::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--green-light);
+            border-radius: 50%;
+            animation: scl-pulse 1.8s infinite;
+        }
+        @keyframes scl-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .3; }
+        }
+        .scl-rows { display: flex; flex-direction: column; }
+        .scl-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+        .scl-row:last-child { border-bottom: none; }
+        .scl-key {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12.5px;
+            color: rgba(255,255,255,.4);
+        }
+        .scl-icon {
+            width: 28px; height: 28px;
+            background: rgba(255,255,255,.07);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+        .scl-val {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: rgba(255,255,255,.82);
+        }
+        .scl-footer {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .scl-spots-label { font-size: 12px; color: rgba(255,255,255,.4); }
+        .scl-spots-dots { display: flex; gap: 5px; }
+        .scl-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+        .scl-dot--taken { background: rgba(255,255,255,.18); }
+        .scl-dot--free { background: var(--green); }
+
+        /* Apply form */
+        .apply-date {
+            font-size: 14px;
+            color: rgba(255,255,255,.5);
+            margin-bottom: 16px;
+        }
+        .apply-date strong { color: rgba(255,255,255,.85); font-weight: 600; }
+        .apply-form {
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,.2);
+            max-width: 460px;
+        }
+        .ap-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid rgba(255,255,255,.14);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            color: #fff;
+            background: rgba(255,255,255,.07);
+            outline: none;
+            transition: border-color .2s;
+        }
+        .ap-input:focus { border-color: var(--green-light); }
+        .ap-input::placeholder { color: rgba(255,255,255,.3); }
+        .ap-btn {
+            padding: 14px 24px;
+            background: var(--green);
+            color: #fff;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .2s, transform .15s;
+        }
+        .ap-btn:hover { background: var(--green-light); transform: translateX(2px); }
+
+        .badge-limited {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            background: rgba(127,29,29,.09);
+            border: 1px solid rgba(127,29,29,.28);
+            color: #7f1d1d;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            margin-bottom: 16px;
+        }
+
+        /* ── ABOUT ── */
+        .about {
+            background: var(--mint);
+            padding: 108px 88px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-avatar-wrap {
+            position: relative;
+            width: 280px; height: 280px;
+            margin: 0 auto;
+        }
+        .about-avatar-ring {
+            width: 280px; height: 280px;
+            border-radius: 50%;
+            border: 3px solid var(--green);
+            position: relative;
+        }
+        .about-avatar-bg {
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .about-avatar-initial {
+            font-family: 'Raleway', sans-serif;
+            font-size: 96px;
+            font-weight: 900;
+            color: rgba(255,255,255,.15);
+            line-height: 1;
+            user-select: none;
+        }
+        .about-avatar-chip {
+            position: absolute;
+            bottom: 8px;
+            right: 0;
+            background: var(--green);
+            color: #fff;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 7px 16px;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(45,140,78,.4);
+        }
+        .about-eyebrow { margin-bottom: 12px; }
+        .about-headline {
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(28px, 3vw, 40px);
+            font-weight: 900;
+            color: var(--navy);
+            letter-spacing: -.04em;
+            line-height: 1.1;
+            margin-bottom: 22px;
+        }
+        .about-headline em { font-style: italic; color: var(--green); }
+        .about-body {
+            font-size: 15.5px;
+            line-height: 1.72;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+        .about-stats {
+            display: flex;
+            gap: 36px;
+            margin-top: 36px;
+            padding-top: 28px;
+            border-top: 1px solid var(--mint-dark);
+        }
+        .astat-num {
+            font-family: 'Raleway', sans-serif;
+            font-size: 30px;
+            font-weight: 900;
+            color: var(--navy);
+            letter-spacing: -.04em;
+        }
+        .astat-label { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+        /* ── FINAL CTA ── */
+        .final-cta {
+            background: var(--navy);
+            padding: 108px 88px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-ring {
+            position: absolute;
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        .cta-ring-1 { width: 640px; height: 640px; border: 1px solid rgba(255,255,255,.04); }
+        .cta-ring-2 { width: 440px; height: 440px; border: 1px solid rgba(255,255,255,.06); }
+        .cta-inner { position: relative; z-index: 1; }
+        .cta-eyebrow {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--green-light);
+            margin-bottom: 18px;
+        }
+        .cta-headline {
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(34px, 4.5vw, 54px);
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -.045em;
+            line-height: 1.08;
+            max-width: 620px;
+            margin: 0 auto 22px;
+        }
+        .cta-headline em { font-style: italic; color: var(--green-light); }
+        .cta-sub {
+            font-size: 16px;
+            color: rgba(255,255,255,.5);
+            max-width: 460px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+        }
+        .cta-form {
+            display: flex;
+            max-width: 470px;
+            margin: 0 auto 18px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,.24);
+        }
+        .cta-input {
+            flex: 1;
+            padding: 17px 22px;
+            border: 2px solid rgba(255,255,255,.14);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14.5px;
+            color: #fff;
+            background: rgba(255,255,255,.07);
+            outline: none;
+            transition: border-color .2s;
+        }
+        .cta-input:focus { border-color: var(--green-light); }
+        .cta-input::placeholder { color: rgba(255,255,255,.28); }
+        .cta-btn {
+            padding: 17px 30px;
+            background: var(--green);
+            color: #fff;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14.5px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .2s, transform .15s;
+        }
+        .cta-btn:hover { background: var(--green-light); transform: translateX(2px); }
+        .cta-note { font-size: 12.5px; color: rgba(255,255,255,.26); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--navy-dark);
+            padding: 36px 88px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,.05);
+        }
+        .footer-logo { display: flex; align-items: center; gap: 10px; }
+        .footer-badge {
+            width: 36px; height: 36px;
+            background: var(--navy-mid);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .footer-badge-letters {
+            font-family: 'Raleway', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 0;
+            display: flex;
+            line-height: 1;
+        }
+        .footer-brand {
+            font-family: 'Raleway', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: -.035em;
+            color: rgba(255,255,255,.65);
+        }
+        .footer-brand span { color: var(--green-light); }
+        .footer-sub {
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.25);
+            margin-top: 4px;
+        }
+        .footer-copy { font-size: 12.5px; color: rgba(255,255,255,.22); }
+
+        /* ── KEYFRAMES ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: .4; transform: scale(.75); }
+        }
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        @keyframes fadeIn   { to { opacity: 1; } }
+
+        /* Section reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-left  { padding: 64px 48px 48px; order: 1; }
+            .hero-right { padding: 52px 40px; order: 0; min-height: 420px; }
+            .nav-inner      { padding: 0 48px; }
+            .proof          { padding: 52px 48px; }
+            .prod-section   { padding: 80px 48px; }
+            .prod-inner     { grid-template-columns: 1fr; gap: 48px; }
+            .prod-inner--rev .prod-text   { order: 2; }
+            .prod-inner--rev .prod-visual { order: 1; }
+            .about          { grid-template-columns: 1fr; padding: 80px 48px; gap: 48px; }
+            .final-cta      { padding: 80px 48px; }
+            footer          { padding: 32px 48px; }
+        }
+
+        @media (max-width: 720px) {
+            .nav-inner  { padding: 0 24px; }
+            .nav-links  { display: none; }
+            .nav-cta    { font-size: 13px; padding: 8px 16px; }
+            .hero-left  { padding: 52px 28px; }
+            .hero-right { padding: 48px 24px; }
+            .proof {
+                grid-template-columns: 1fr;
+                padding: 48px 28px;
+                gap: 32px;
+            }
+            .proof-divider { display: none; }
+            .prod-section   { padding: 72px 28px; }
+            .prod-inner     { gap: 36px; }
+            .about          { padding: 72px 28px; }
+            .final-cta      { padding: 72px 28px; }
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+                padding: 28px;
+            }
+            .email-form, .waitlist-form, .apply-form, .cta-form {
+                flex-direction: column;
+                box-shadow: none;
+            }
+            .email-input, .wl-input {
+                border-right: 2px solid var(--border);
+                border-radius: 10px 10px 0 0;
+                border-bottom: none;
+            }
+            .email-btn, .wl-btn {
+                border-radius: 0 0 10px 10px;
+            }
+            .ap-input {
+                border-right: 2px solid rgba(255,255,255,.14);
+                border-radius: 10px 10px 0 0;
+                border-bottom: none;
+            }
+            .ap-btn { border-radius: 0 0 10px 10px; }
+            .cta-input {
+                border-right: 2px solid rgba(255,255,255,.14);
+                border-radius: 10px 10px 0 0;
+                border-bottom: none;
+            }
+            .cta-btn { border-radius: 0 0 10px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">
+            <div class="nav-logo-badge">
+                <div class="nav-logo-letters">
+                    <span style="color:#ffffff">I</span><span style="color:#3aa861">L</span>
+                </div>
+            </div>
+            <div class="nav-logo-text">
+                <div class="nav-wordmark">Invest <span>Lab</span></div>
+                <div class="nav-tagline">Learn · Invest · Grow</div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="#jurnal">Jurnal</a>
+            <a href="#membership">Membership</a>
+            <a href="#mentorat">Mentorat</a>
+        </div>
+        <a href="https://app.investlab.ro/register" class="nav-cta">Creează cont →</a>
+    </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero">
+
+    <!-- Left: unchanged -->
+    <div class="hero-left">
+        <h1 class="hero-headline">
+            Urmărește fiecare<br>
+            <em>mișcare</em> a<br>
+            portofoliului nostru
+        </h1>
+
+        <p class="hero-sub">
+            Abonează-te la newsletter-ul nostru gratuit pentru a primi știri săptămânale despre starea pieței și recomandările mele.
+        </p>
+
+        <form class="email-form" onsubmit="handleHeroForm(event)">
+            <input type="email" class="email-input" placeholder="adresa ta de email" required>
+            <button type="submit" class="email-btn">Abonează-te →</button>
+        </form>
+
+        <div class="hero-trust">
+            <div class="trust-item">
+                <div class="trust-dot"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                <span>Fără spam</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-dot"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                <span>Știri săptămânale despre piață</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-dot"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                <span>Dezabonare oricând</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: portfolio chart card -->
+    <div class="hero-right">
+        <div class="deco-ring deco-ring-1"></div>
+        <div class="deco-ring deco-ring-2"></div>
+        <div class="deco-blob"></div>
+
+        <div class="portfolio-card">
+            <div class="pc-header">
+                <span class="pc-title">Portofoliu 2024</span>
+                <span class="pc-perf">+34%</span>
+            </div>
+
+            <div class="pc-chart">
+                <svg viewBox="0 0 330 160" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%"   stop-color="#3aa861" stop-opacity="0.38"/>
+                            <stop offset="100%" stop-color="#3aa861" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <path class="pc-fill"
+                        d="M15,118 C40,108 65,104 81,100 C97,96 122,83 147,78 C172,73 191,58 213,52 C235,46 248,43 264,40 C280,37 298,27 315,22 L315,158 L15,158 Z"
+                        fill="url(#chartGrad)"/>
+                    <path class="pc-line" pathLength="1"
+                        d="M15,118 C40,108 65,104 81,100 C97,96 122,83 147,78 C172,73 191,58 213,52 C235,46 248,43 264,40 C280,37 298,27 315,22"
+                        fill="none" stroke="#3aa861" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+                <!-- Annotation dots: positions match SVG coords (213,52) and (315,22) on 330×160 viewBox -->
+                <div class="pc-dot" style="left:64.5%;top:32.5%" data-tip="Intrare NVDA"></div>
+                <div class="pc-dot pc-dot--flip" style="left:95.5%;top:13.75%" data-tip="Dividende Q3"></div>
+            </div>
+
+            <div class="pc-xaxis">
+                <span>Ian</span><span>Mar</span><span>Iun</span><span>Aug</span><span>Oct</span><span>Dec</span>
+            </div>
+
+            <div class="pc-foot">6 ani de investiții active · portofoliu documentat</div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PROOF STRIP (unchanged)
+══════════════════════════════════════ -->
+<div class="proof">
+    <div class="proof-item">
+        <div class="proof-num" data-target="400">0<sup>+</sup></div>
+        <div class="proof-label">membri mulțumiți</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+        <div class="proof-num" data-target="6">0<sup>+</sup></div>
+        <div class="proof-label">ani de experiență în investiții</div>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">
+        <div class="proof-num" data-target="34" data-prefix="+">0<sup>%</sup></div>
+        <div class="proof-label">randament portofoliu în 2026</div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     S1 — JURNAL DE TRANZACȚII
+══════════════════════════════════════ -->
+<section class="prod-section prod-section--white" id="jurnal">
+    <div class="prod-inner">
+
+        <div class="prod-text reveal">
+            <p class="prod-eyebrow">Jurnal de tranzacții</p>
+            <h2 class="prod-headline">Urmărești fiecare mișcare <em>în timp real</em></h2>
+            <p class="prod-desc">Fiecare tranzacție apare în jurnal cu prețul de intrare, motivul și contextul macro. Nu ascundem nimic.</p>
+            <ul class="prod-benefits">
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Acces imediat după creare cont</span>
+                </li>
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Raționament complet per tranzacție</span>
+                </li>
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Notificări la fiecare mișcare nouă</span>
+                </li>
+            </ul>
+            <div class="prod-ctas">
+                <a href="https://app.investlab.ro/register" class="btn-primary">Creează cont gratuit →</a>
+            </div>
+        </div>
+
+        <div class="prod-visual reveal" style="transition-delay:.15s">
+            <div class="mini-widget">
+                <div class="widget-top">
+                    <div class="widget-title">Jurnal Tranzacții</div>
+                    <div class="live-badge"><div class="live-dot"></div>Live</div>
+                </div>
+                <div class="trade">
+                    <div class="trade-l">
+                        <span class="badge badge-buy">BUY</span>
+                        <div>
+                            <div class="trade-ticker">NVDA</div>
+                            <div class="trade-name">NVIDIA Corp.</div>
+                        </div>
+                    </div>
+                    <div class="trade-r">
+                        <div class="trade-price">$875.00</div>
+                        <div class="trade-when">Azi, 10:14</div>
+                    </div>
+                </div>
+                <div class="trade">
+                    <div class="trade-l">
+                        <span class="badge badge-sell">SELL</span>
+                        <div>
+                            <div class="trade-ticker">BRK.B</div>
+                            <div class="trade-name">Berkshire B</div>
+                        </div>
+                    </div>
+                    <div class="trade-r">
+                        <div class="trade-price">$358.50</div>
+                        <div class="trade-when">Ieri, 10:05</div>
+                    </div>
+                </div>
+                <div class="trade">
+                    <div class="trade-l">
+                        <span class="badge badge-add">ADD</span>
+                        <div>
+                            <div class="trade-ticker">SPY</div>
+                            <div class="trade-name">S&amp;P 500 ETF</div>
+                        </div>
+                    </div>
+                    <div class="trade-r">
+                        <div class="trade-price">$485.20</div>
+                        <div class="trade-when">24 Apr</div>
+                    </div>
+                </div>
+                <div class="widget-foot">
+                    <div class="wf-count">Jurnal activ · <strong>actualizat live</strong></div>
+                    <div class="wf-cta">+ raționament →</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     S2 — MEMBERSHIP
+══════════════════════════════════════ -->
+<section class="prod-section prod-section--mint" id="membership">
+    <div class="prod-inner prod-inner--rev">
+
+        <div class="prod-visual reveal">
+            <div class="member-card">
+                <div class="mc-header">
+                    <span class="mc-badge">MEMBER</span>
+                    <span class="mc-brand">InvestLab</span>
+                </div>
+                <div class="mc-features">
+                    <div class="mc-feat">
+                        <div class="mc-feat-icon">📹</div>
+                        <span class="mc-feat-label">Sesiuni live săptămânale</span>
+                        <div class="mc-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    </div>
+                    <div class="mc-feat">
+                        <div class="mc-feat-icon">📊</div>
+                        <span class="mc-feat-label">Arhivă completă jurnal</span>
+                        <div class="mc-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    </div>
+                    <div class="mc-feat">
+                        <div class="mc-feat-icon">🎓</div>
+                        <span class="mc-feat-label">Cursuri video de la zero</span>
+                        <div class="mc-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    </div>
+                    <div class="mc-feat">
+                        <div class="mc-feat-icon">👥</div>
+                        <span class="mc-feat-label">Comunitate investitori activi</span>
+                        <div class="mc-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="prod-text reveal" style="transition-delay:.15s">
+            <span class="badge-limited">⚑ Locuri limitate</span>
+            <p class="prod-eyebrow">Membership</p>
+            <h2 class="prod-headline">Investește cu <em>oameni care înțeleg</em> piața</h2>
+            <p class="prod-desc">Sesiuni live săptămânale, acces la cursuri video pentru începători, arhiva completă a jurnalului și o comunitate de investitori activi.</p>
+            <ul class="prod-benefits">
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Sesiuni live săptămânale cu Mihai</span>
+                </li>
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Cursuri video de la zero (broker, bursă, analiză)</span>
+                </li>
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Arhivă completă jurnal tranzacții</span>
+                </li>
+            </ul>
+            <p class="waitlist-soon">Membership-ul se lansează pe <strong>1 Mai 2026</strong>.</p>
+            <form class="waitlist-form" onsubmit="handleWaitlist(event)">
+                <input type="email" class="wl-input" placeholder="adresa ta de email" required>
+                <button type="submit" class="wl-btn">Vreau să fiu anunțat →</button>
+            </form>
+            <p class="waitlist-note">Fără spam · Dezabonare oricând</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     S3 — MENTORAT 1-LA-1
+══════════════════════════════════════ -->
+<section class="prod-section prod-section--navy" id="mentorat">
+    <div class="prod-inner">
+
+        <div class="prod-text reveal">
+            <p class="prod-eyebrow">Mentorat 1-la-1</p>
+            <h2 class="prod-headline">Analizăm <em>portofoliul tău</em> împreună</h2>
+            <p class="prod-desc">Sesiuni private cu Mihai. Identificăm oportunități, analizăm riscurile și luăm decizii pe situația ta concretă.</p>
+            <ul class="prod-benefits">
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Sesiune 1-la-1 dedicată</span>
+                </li>
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Analiză portofoliu personalizată</span>
+                </li>
+                <li class="prod-benefit">
+                    <div class="benefit-check"><svg viewBox="0 0 9 7"><polyline points="1,3.5 3.5,6 8,1"/></svg></div>
+                    <span class="prod-benefit-text">Număr limitat de locuri</span>
+                </li>
+            </ul>
+            <form class="apply-form" onsubmit="handleApply(event)">
+                <input type="email" class="ap-input" placeholder="adresa ta de email" required>
+                <button type="submit" class="ap-btn">Aplică →</button>
+            </form>
+        </div>
+
+        <div class="prod-visual reveal" style="transition-delay:.15s">
+            <div class="session-card-large">
+                <div class="scl-header">
+                    <span class="scl-title">Sesiune Mentorat</span>
+                    <span class="scl-live">Locuri disponibile</span>
+                </div>
+                <div class="scl-rows">
+                    <div class="scl-row">
+                        <span class="scl-key">
+                            <span class="scl-icon">📅</span>
+                            Frecvență
+                        </span>
+                        <span class="scl-val">2× pe săptămână</span>
+                    </div>
+                    <div class="scl-row">
+                        <span class="scl-key">
+                            <span class="scl-icon">⏱</span>
+                            Durata
+                        </span>
+                        <span class="scl-val">60 min / sesiune</span>
+                    </div>
+                    <div class="scl-row">
+                        <span class="scl-key">
+                            <span class="scl-icon">📊</span>
+                            Topic
+                        </span>
+                        <span class="scl-val">Analiza portofoliu</span>
+                    </div>
+                    <div class="scl-row">
+                        <span class="scl-key">
+                            <span class="scl-icon">🎥</span>
+                            Format
+                        </span>
+                        <span class="scl-val">Video call privat</span>
+                    </div>
+                </div>
+                <div class="scl-footer">
+                    <span class="scl-spots-label">Locuri rămase</span>
+                    <div class="scl-spots-dots">
+                        <div class="scl-dot scl-dot--taken"></div>
+                        <div class="scl-dot scl-dot--taken"></div>
+                        <div class="scl-dot scl-dot--taken"></div>
+                        <div class="scl-dot scl-dot--free"></div>
+                        <div class="scl-dot scl-dot--free"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     ABOUT MIHAI (unchanged)
+══════════════════════════════════════ -->
+<section class="about" id="despre">
+    <div>
+        <div class="about-avatar-wrap">
+            <div class="about-avatar-ring">
+                <div class="about-avatar-bg">
+                    <span class="about-avatar-initial">M</span>
+                </div>
+            </div>
+            <div class="about-avatar-chip">Analist · Investitor</div>
+        </div>
+    </div>
+
+    <div>
+        <p class="section-eyebrow about-eyebrow">Pe mâinile cui ești</p>
+        <h2 class="about-headline">
+            Investesc cu <em>banii mei.</em><br>
+            Tu vezi fiecare decizie.
+        </h2>
+        <p class="about-body">
+            Nu sunt un teoretician. Fiecare tranzacție pe care o documentez am făcut-o cu banii mei proprii. Nu sfătuiesc de pe margine — analizez, decid și arăt totul.
+        </p>
+        <p class="about-body">
+            Convingerea mea: piața se bate printr-o minte clară, răbdare și transparență față de tine însuți.
+        </p>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FINAL CTA (unchanged)
+══════════════════════════════════════ -->
+<section class="final-cta" id="contact">
+    <div class="cta-ring cta-ring-1"></div>
+    <div class="cta-ring cta-ring-2"></div>
+
+    <div class="cta-inner">
+        <p class="cta-eyebrow">Începe gratuit</p>
+        <h2 class="cta-headline">
+            Primele lecții sunt<br>
+            <em>cadoul nostru</em> pentru tine
+        </h2>
+        <p class="cta-sub">
+            Înscrie-te și îți trimitem imediat 3 lecții despre cum gândim investițiile — plus notificări la fiecare tranzacție nouă.
+        </p>
+        <form class="cta-form" onsubmit="handleCtaForm(event)">
+            <input type="email" class="cta-input" placeholder="adresa ta de email" required>
+            <button type="submit" class="cta-btn">Vreau Accesul →</button>
+        </form>
+        <p class="cta-note">Fără spam &nbsp;·&nbsp; Dezabonare oricând &nbsp;·&nbsp; 100% gratuit</p>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER (unchanged)
+══════════════════════════════════════ -->
+<footer>
+    <div class="footer-logo">
+        <div class="footer-badge">
+            <div class="footer-badge-letters">
+                <span style="color:#ffffff">I</span><span style="color:#3aa861">L</span>
+            </div>
+        </div>
+        <div>
+            <div class="footer-brand">Invest <span>Lab</span></div>
+            <div class="footer-sub">Learn · Invest · Grow</div>
+        </div>
+    </div>
+    <div class="footer-copy">© 2026 investlab.ro &nbsp;·&nbsp; Toate drepturile rezervate</div>
+</footer>
+
+
+<script>
+    /* ── Navbar scroll shadow ── */
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
+    }, { passive: true });
+
+    /* ── Number counter ── */
+    function animateCount(el) {
+        const target = parseInt(el.dataset.target, 10);
+        const sup    = el.querySelector('sup') ? el.querySelector('sup').outerHTML : '';
+        const dur    = 1800;
+        const t0     = performance.now();
+        (function tick(now) {
+            const p    = Math.min((now - t0) / dur, 1);
+            const ease = 1 - Math.pow(1 - p, 3);
+            el.innerHTML = (el.dataset.prefix || '') + Math.round(ease * target) + sup;
+            if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+    }
+
+    const countObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { animateCount(e.target); countObs.unobserve(e.target); }
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.proof-num[data-target]').forEach(el => countObs.observe(el));
+
+    /* ── Section reveal ── */
+    const revealObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+        });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* ── Form handlers ── */
+    function setSuccess(btn, text) {
+        btn.textContent = text;
+        btn.style.background = '#2d8c4e';
+        btn.disabled = true;
+    }
+
+    function setError(btn, originalText) {
+        btn.textContent = 'Eroare — încearcă din nou';
+        btn.style.background = '#c0392b';
+        setTimeout(() => { btn.textContent = originalText; btn.style.background = ''; btn.disabled = false; }, 3000);
+    }
+
+    async function subscribeEmail(email, btn, successText) {
+        const originalText = btn.textContent;
+        btn.textContent = 'Se trimite...';
+        btn.disabled = true;
+        try {
+            const res = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            if (res.ok) {
+                setSuccess(btn, successText);
+            } else {
+                setError(btn, originalText);
+            }
+        } catch {
+            setError(btn, originalText);
+        }
+    }
+
+    function handleHeroForm(e)  { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Abonat cu succes!'); }
+    function handleCtaForm(e)   { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Ai primit accesul!'); }
+    function handleWaitlist(e)  { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Te anunțăm la lansare!'); }
+    function handleApply(e)     { e.preventDefault(); const b = e.target.querySelector('button'); subscribeEmail(e.target.querySelector('input').value, b, '✓ Aplicat cu succes!'); }
+</script>
+
+</body>
+</html>
