@@ -1359,6 +1359,21 @@
             footer          { padding: 32px 48px 24px; }
         }
 
+        @media (max-width: 860px) {
+            .email-form {
+                flex-direction: column;
+                box-shadow: none;
+            }
+            .email-input {
+                border-right: 2px solid var(--border);
+                border-radius: 10px 10px 0 0;
+                border-bottom: none;
+            }
+            .email-btn {
+                border-radius: 0 0 10px 10px;
+            }
+        }
+
         @media (max-width: 720px) {
             .nav-inner  { padding: 0 24px; }
             .nav-links  { display: none; }
