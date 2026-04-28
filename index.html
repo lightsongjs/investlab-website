@@ -213,7 +213,7 @@
         .email-form {
             display: flex;
             max-width: 430px;
-            margin-bottom: 18px;
+            margin-bottom: 10px;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 24px rgba(15,41,66,.12);
@@ -249,6 +249,29 @@
             transition: background .2s, transform .15s;
         }
         .email-btn:hover { background: var(--green); transform: translateX(2px); }
+        .form-feedback {
+            min-height: 20px;
+            margin: 0 0 18px;
+            font-size: 13.5px;
+            font-weight: 600;
+            line-height: 1.45;
+            color: var(--green);
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: opacity .2s ease, transform .2s ease;
+        }
+        .form-feedback.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .form-feedback.error { color: #b42318; }
+        .form-feedback.cta-feedback {
+            margin: -6px auto 0;
+            color: rgba(255,255,255,.78);
+            text-align: center;
+        }
+        .form-feedback.cta-feedback.show { color: var(--green-light); }
+        .form-feedback.cta-feedback.error { color: #ffb4a8; }
         .hero-trust {
             display: flex;
             flex-wrap: wrap;
@@ -1146,7 +1169,7 @@
         .cta-form {
             display: flex;
             max-width: 470px;
-            margin: 0 auto 18px;
+            margin: 0 auto 12px;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,.24);
@@ -1427,6 +1450,7 @@
             <input type="email" class="email-input" placeholder="adresa ta de email" required>
             <button type="submit" class="email-btn">Vreau newsletterul →</button>
         </form>
+        <p class="form-feedback" aria-live="polite"></p>
 
         <div class="hero-trust">
             <div class="trust-item">
@@ -1793,6 +1817,7 @@
             <input type="email" class="cta-input" placeholder="adresa ta de email" required>
             <button type="submit" class="cta-btn">Vreau newsletterul →</button>
         </form>
+        <p class="form-feedback cta-feedback" aria-live="polite"></p>
     </div>
 </section>
 
@@ -1883,15 +1908,43 @@
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
     /* ── Form handlers ── */
-    function setSuccess(btn, text) {
+    function setFeedback(form, text, type = 'success') {
+        const feedback = form.parentElement.querySelector('.form-feedback');
+        if (!feedback) return;
+
+        feedback.textContent = text;
+        feedback.classList.toggle('error', type === 'error');
+        feedback.classList.add('show');
+    }
+
+    function setSuccess(btn, text, form, feedbackText) {
         btn.textContent = text;
         btn.style.background = '#2d8c4e';
         btn.disabled = true;
+        setFeedback(form, feedbackText);
     }
-    function handleHeroForm(e)  { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Abonat cu succes!'); }
-    function handleCtaForm(e)   { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Ai primit accesul!'); }
-    function handleWaitlist(e)  { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Te anunțăm la lansare!'); }
-    function handleApply(e)     { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Aplicat cu succes!'); }
+
+    function handleNewsletterForm(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const btn = form.querySelector('button');
+        btn.textContent = 'Se abonează...';
+        btn.disabled = true;
+
+        window.setTimeout(() => {
+            setSuccess(
+                btn,
+                '✓ Abonat',
+                form,
+                'Te-ai abonat cu succes. Vei primi următoarele materiale InvestLab pe email.'
+            );
+        }, 350);
+    }
+    function handleHeroForm(e)  { handleNewsletterForm(e); }
+    function handleCtaForm(e)   { handleNewsletterForm(e); }
+    function handleWaitlist(e)  { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Te anunțăm la lansare!', e.target, 'Am primit emailul tău. Te anunțăm când deschidem accesul.'); }
+    function handleApply(e)     { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Aplicat cu succes!', e.target, 'Am primit aplicația ta. Revenim cu următorul pas pe email.'); }
 </script>
 
 </body>
