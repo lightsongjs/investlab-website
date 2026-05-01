@@ -7,7 +7,7 @@ import { createRequire } from 'module';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.join(__dirname, '..');
-const ENV_PATH  = path.join(ROOT, '..', 'investLabProduct', '.env');
+const ENV_PATH  = path.join(ROOT, '..', 'ilProduct', '.env');
 
 // Load .env manual (fără dotenv extra dependency)
 fs.readFileSync(ENV_PATH, 'utf8').split('\n').forEach(line => {

@@ -1727,6 +1727,7 @@
                 <input type="email" class="wl-input" placeholder="adresa ta de email" required>
                 <button type="submit" class="wl-btn">Vreau să fiu anunțat →</button>
             </form>
+            <p class="form-feedback" aria-live="polite"></p>
         </div>
 
     </div>
@@ -1761,6 +1762,7 @@
                 <input type="email" class="ap-input" placeholder="adresa ta de email" required>
                 <button type="submit" class="ap-btn">Aplică →</button>
             </form>
+            <p class="form-feedback" aria-live="polite"></p>
         </div>
 
         <div class="prod-visual reveal" style="transition-delay:.15s">
@@ -1978,27 +1980,83 @@
         setFeedback(form, feedbackText);
     }
 
-    function handleNewsletterForm(e) {
+    function setFormError(btn, originalText, form, feedbackText) {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        btn.disabled = false;
+        setFeedback(form, feedbackText, 'error');
+    }
+
+    async function submitForm({ form, endpoint, payload, loadingText, successText, successFeedback }) {
+        const btn = form.querySelector('button');
+        const originalText = btn.textContent;
+        btn.textContent = loadingText;
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            if (!res.ok) throw new Error('Request failed');
+
+            setSuccess(btn, successText, form, successFeedback);
+        } catch {
+            setFormError(
+                btn,
+                originalText,
+                form,
+                'Nu am putut trimite cererea. Te rugăm să încerci din nou.'
+            );
+        }
+    }
+
+    async function handleNewsletterForm(e) {
         e.preventDefault();
 
         const form = e.target;
-        const btn = form.querySelector('button');
-        btn.textContent = 'Se abonează...';
-        btn.disabled = true;
-
-        window.setTimeout(() => {
-            setSuccess(
-                btn,
-                '✓ Abonat',
-                form,
-                'Te-ai abonat cu succes. Vei primi următoarele materiale InvestLab pe email.'
-            );
-        }, 350);
+        const email = form.querySelector('input[type="email"]').value.trim();
+        await submitForm({
+            form,
+            endpoint: '/api/subscribe',
+            payload: { email },
+            loadingText: 'Se abonează...',
+            successText: form.classList.contains('cta-form') ? '✓ Ai primit accesul!' : '✓ Abonat cu succes!',
+            successFeedback: 'Te-ai abonat cu succes. Vei primi următoarele materiale InvestLab pe email.',
+        });
     }
     function handleHeroForm(e)  { handleNewsletterForm(e); }
     function handleCtaForm(e)   { handleNewsletterForm(e); }
-    function handleWaitlist(e)  { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Te anunțăm la lansare!', e.target, 'Am primit emailul tău. Te anunțăm când deschidem accesul.'); }
-    function handleApply(e)     { e.preventDefault(); setSuccess(e.target.querySelector('button'), '✓ Aplicat cu succes!', e.target, 'Am primit aplicația ta. Revenim cu următorul pas pe email.'); }
+    async function handleWaitlist(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const email = form.querySelector('input[type="email"]').value.trim();
+        await submitForm({
+            form,
+            endpoint: '/api/notify',
+            payload: { email, type: 'membership' },
+            loadingText: 'Se trimite...',
+            successText: '✓ Te anunțăm la lansare!',
+            successFeedback: 'Am primit emailul tău. Te anunțăm când deschidem accesul.',
+        });
+    }
+    async function handleApply(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const email = form.querySelector('input[type="email"]').value.trim();
+        await submitForm({
+            form,
+            endpoint: '/api/notify',
+            payload: { email, type: 'mentorat' },
+            loadingText: 'Se trimite...',
+            successText: '✓ Aplicat cu succes!',
+            successFeedback: 'Am primit aplicația ta. Revenim cu următorul pas pe email.',
+        });
+    }
 </script>
 
 </body>
