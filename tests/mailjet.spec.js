@@ -19,8 +19,8 @@ test('Mailjet → lightsongjs@gmail.com e în lista newsletter', async ({ reques
   expect(data.Data[0].ListID).toBe(Number(LIST_ID));
 });
 
-// ── Notify: un email a fost trimis către contact@investlab.ro ──
-test('Mailjet → email trimis la contact@investlab.ro pentru membership', async ({ request }) => {
+// ── Notify: un email a fost trimis către hello.investlab@gmail.com ──
+test('Mailjet → email trimis la hello.investlab@gmail.com pentru membership', async ({ request }) => {
   const res  = await request.get(
     'https://api.mailjet.com/v3/REST/message?FromEmail=mihai@investlab.ro&Subject=Cerere+nou%C4%83%3A+Membership&Limit=5',
     { headers: { Authorization: AUTH() } }
@@ -29,7 +29,7 @@ test('Mailjet → email trimis la contact@investlab.ro pentru membership', async
   expect(data.Count).toBeGreaterThan(0);
 });
 
-test('Mailjet → email trimis la contact@investlab.ro pentru mentorat', async ({ request }) => {
+test('Mailjet → email trimis la hello.investlab@gmail.com pentru mentorat', async ({ request }) => {
   const res  = await request.get(
     'https://api.mailjet.com/v3/REST/message?FromEmail=mihai@investlab.ro&Subject=Cerere+nou%C4%83%3A+Mentorat+1-la-1&Limit=5',
     { headers: { Authorization: AUTH() } }

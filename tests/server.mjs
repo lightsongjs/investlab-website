@@ -50,7 +50,7 @@ async function apiNotify(body) {
     body: JSON.stringify({
       Messages: [{
         From:     { Email: 'mihai@investlab.ro', Name: 'InvestLab' },
-        To:       [{ Email: 'lightsongpy@gmail.com' }, { Email: 'mihaiclaudiusuciu87@gmail.com' }],
+        To:       [{ Email: 'hello.investlab@gmail.com' }],
         Subject:  subjects[type] || 'Cerere nouă de pe site',
         TextPart: `Email: ${email}`,
       }],
