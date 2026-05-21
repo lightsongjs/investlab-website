@@ -13,7 +13,7 @@ const NAVY = '#0f2942'
 const WHITE = '#ffffff'
 
 // All variants encode the same URL — the print shop picks the one that fits.
-const URL = 'https://app.investlab.ro/signup'
+const URL = 'https://app.investlab.ro'
 const VARIANTS = [
   // Primary — branded, looks the most "premium" but largest logo footprint.
   { name: 'signup',       logoRatio: 0.22 },
