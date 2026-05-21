@@ -15,7 +15,14 @@ fs.readFileSync(ENV_PATH, 'utf8').split('\n').forEach(line => {
   if (k && !k.startsWith('#') && v.length) process.env[k.trim()] = v.join('=').trim();
 });
 
-const { MAILJET_API_KEY, MAILJET_SECRET_KEY, MAILJET_CONTACT_LIST_ID } = process.env;
+const {
+  MAILJET_API_KEY,
+  MAILJET_SECRET_KEY,
+  MAILJET_CONTACT_LIST_ID,
+  MAILJET_FROM_EMAIL = 'contact@investlab.ro',
+  MAILJET_FROM_NAME = 'InvestLab',
+  NOTIFY_TO_EMAIL = 'hello.investlab@gmail.com',
+} = process.env;
 const auth = () => `Basic ${Buffer.from(`${MAILJET_API_KEY}:${MAILJET_SECRET_KEY}`).toString('base64')}`;
 
 const MIME = { '.html': 'text/html', '.svg': 'image/svg+xml', '.js': 'application/javascript', '.css': 'text/css' };
@@ -49,8 +56,9 @@ async function apiNotify(body) {
     headers: { Authorization: auth(), 'Content-Type': 'application/json' },
     body: JSON.stringify({
       Messages: [{
-        From:     { Email: 'mihai@investlab.ro', Name: 'InvestLab' },
-        To:       [{ Email: 'hello.investlab@gmail.com' }],
+        From:     { Email: MAILJET_FROM_EMAIL, Name: MAILJET_FROM_NAME },
+        To:       [{ Email: NOTIFY_TO_EMAIL }],
+        ReplyTo:  { Email: MAILJET_FROM_EMAIL },
         Subject:  subjects[type] || 'Cerere nouă de pe site',
         TextPart: `Email: ${email}`,
       }],

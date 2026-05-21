@@ -1,11 +1,34 @@
 import { test, expect } from '@playwright/test';
 import { Buffer } from 'buffer';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ENV_PATH = path.join(__dirname, '..', '..', 'ilProduct', '.env');
+
+if (fs.existsSync(ENV_PATH)) {
+  fs.readFileSync(ENV_PATH, 'utf8').split(/\r?\n/).forEach((line) => {
+    const match = line.match(/^\s*([^#=\s]+)\s*=\s*(.*)$/);
+    if (match && !process.env[match[1]]) process.env[match[1]] = match[2].trim();
+  });
+}
 
 const EMAIL     = 'lightsongjs@gmail.com';
 const API_KEY   = process.env.MAILJET_API_KEY;
 const SECRET    = process.env.MAILJET_SECRET_KEY;
 const LIST_ID   = process.env.MAILJET_CONTACT_LIST_ID;
 const AUTH      = () => `Basic ${Buffer.from(`${API_KEY}:${SECRET}`).toString('base64')}`;
+
+test.beforeAll(() => {
+  const missing = [
+    ['MAILJET_API_KEY', API_KEY],
+    ['MAILJET_SECRET_KEY', SECRET],
+    ['MAILJET_CONTACT_LIST_ID', LIST_ID],
+  ].filter(([, value]) => !value).map(([key]) => key);
+
+  expect(missing, `Missing Mailjet env vars: ${missing.join(', ')}`).toEqual([]);
+});
 
 // ── Subscribe: contactul trebuie să fie în lista newsletter ────
 test('Mailjet → lightsongjs@gmail.com e în lista newsletter', async ({ request }) => {
