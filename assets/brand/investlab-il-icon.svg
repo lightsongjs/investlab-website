@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Invest Lab IL Icon</title>
+  <desc id="desc">Rounded navy badge with white I and green L.</desc>
+  <rect width="512" height="512" rx="112" fill="#0f2942"/>
+  <rect x="88" y="112" width="76" height="288" fill="#ffffff"/>
+  <rect x="216" y="112" width="76" height="288" fill="#3aa861"/>
+  <rect x="216" y="336" width="208" height="64" fill="#3aa861"/>
+</svg>

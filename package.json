@@ -2,10 +2,12 @@
   "type": "module",
   "scripts": {
     "test": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "qr": "node scripts/generate-qr.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "qrcode": "^1.5.4"
   }
 }
