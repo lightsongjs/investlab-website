@@ -238,6 +238,7 @@
         }
         .email-input {
             flex: 1;
+            min-width: 0;
             padding: 16px 20px;
             border: 2px solid var(--border);
             border-right: none;
@@ -252,6 +253,7 @@
         .email-input:focus { border-color: var(--navy); }
         .email-input::placeholder { color: #a0aec0; }
         .email-btn {
+            flex-shrink: 0;
             padding: 16px 26px;
             background: var(--navy);
             color: #fff;
@@ -260,11 +262,23 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 14.5px;
             font-weight: 600;
+            line-height: 1.4;
             cursor: pointer;
             white-space: nowrap;
             transition: background .2s, transform .15s;
         }
         .email-btn:hover { background: var(--green); transform: translateX(2px); }
+        .btn-arrow { vertical-align: middle; margin-left: 4px; display: inline-block; }
+        .email-form.is-disabled,
+        .cta-form.is-disabled { opacity: .85; }
+        .email-input:disabled,
+        .cta-input:disabled { background: #f1f3f7; color: #8a94a6; cursor: not-allowed; }
+        .cta-input:disabled { background: rgba(255,255,255,.04); color: rgba(255,255,255,.45); }
+        .email-btn:disabled,
+        .cta-btn:disabled { cursor: not-allowed; opacity: .7; }
+        .email-btn:disabled:hover,
+        .cta-btn:disabled:hover { background: var(--navy); transform: none; }
+        .cta-btn:disabled:hover { background: var(--green); }
         .form-feedback {
             min-height: 20px;
             margin: 0 0 18px;
@@ -1204,6 +1218,7 @@
         }
         .cta-input {
             flex: 1;
+            min-width: 0;
             padding: 17px 22px;
             border: 2px solid rgba(255,255,255,.14);
             border-right: none;
@@ -1218,6 +1233,7 @@
         .cta-input:focus { border-color: var(--green-light); }
         .cta-input::placeholder { color: rgba(255,255,255,.28); }
         .cta-btn {
+            flex-shrink: 0;
             padding: 17px 30px;
             background: var(--green);
             color: #fff;
@@ -1226,6 +1242,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 14.5px;
             font-weight: 600;
+            line-height: 1.4;
             cursor: pointer;
             white-space: nowrap;
             transition: background .2s, transform .15s;
@@ -1491,9 +1508,9 @@
             Analize clare despre companii, piață și oportunități, explicate simplu, ca să iei decizii mai bune.
         </p>
 
-        <form class="email-form" onsubmit="handleHeroForm(event)">
-            <input type="email" class="email-input" placeholder="adresa ta de email" required>
-            <button type="submit" class="email-btn">Vreau newsletterul →</button>
+        <form class="email-form is-disabled" onsubmit="event.preventDefault()">
+            <input type="email" class="email-input" placeholder="adresa ta de email" disabled>
+            <button type="button" class="email-btn" disabled>În curând</button>
         </form>
         <p class="form-feedback" aria-live="polite"></p>
 
@@ -1862,9 +1879,9 @@
         <p class="cta-sub">
             Îți trimitem analize și observații despre piață, companii și oportunități, direct pe email.
         </p>
-        <form class="cta-form" onsubmit="handleCtaForm(event)">
-            <input type="email" class="cta-input" placeholder="adresa ta de email" required>
-            <button type="submit" class="cta-btn">Vreau newsletterul →</button>
+        <form class="cta-form is-disabled" onsubmit="event.preventDefault()">
+            <input type="email" class="cta-input" placeholder="adresa ta de email" disabled>
+            <button type="button" class="cta-btn" disabled>În curând</button>
         </form>
         <p class="form-feedback cta-feedback" aria-live="polite"></p>
     </div>
